@@ -1,2 +1,2 @@
-# Task2A
+# Task2B
 Solution

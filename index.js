@@ -3,10 +3,22 @@ import express from 'express';
 const app = express();
 
 app.get('/', (req, res) => {
-  const fullname = req.query.fullname;
+  var fullname = req.query.fullname;
+  fullname = fullname.trim();
+  //Check if normal
+  if(!fullname)
+    return res.send('Invalid fullname');
+  const re = new RegExp('[0-9_/$&+,:;=?@#|\'<>.^*()%!-]');
+  const match = fullname.search(re);
+  //console.log(match);
+  if(match != -1){
+    return res.send('Invalid fullname');
+    console.log('IF');
+  }
   const arr = fullname.split(' ');
-  if (arr.length > 3) {
+  if (arr.length > 3 ) {
     res.send('Invalid fullname');
+    console.log('IF');
   } else {
     var response = arr[arr.length - 1];
     var father;

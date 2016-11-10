@@ -3,16 +3,32 @@ import express from 'express';
 const app = express();
 
 app.get('/', (req, res) => {
-  let a = parseInt(req.query.a, 10);
-  if (isNaN(req.query.a)) {
-    a = 0;
+  const fullname = req.query.fullname;
+  const arr = fullname.split(' ');
+  if (arr.length > 3) {
+    res.send('Invalid fullname');
+  } else {
+    var response = arr[arr.length - 1];
+    var father;
+    var name;
+    if (arr.length - 2 >= 0) {
+      father = arr[arr.length - 2];
+  }else{
+    father = '';
   }
-  let b = parseInt(req.query.b, 10);
-  if (isNaN(req.query.b)) {
-    b = 0;
-  }
-  const result = a + b;
-  res.send(result.toString());
+
+  if (arr.length - 3 >= 0) {
+    name = arr[arr.length - 3];
+}else{
+  name = '';
+}
+if (name)
+  response = response + ' ' + name[0] + '.';
+if (father)
+  response = response + ' ' + father[0] + '.';
+res.send(response);
+}
+
 });
 
 app.listen(3000, () => {

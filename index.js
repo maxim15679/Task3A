@@ -1,7 +1,9 @@
 import fetch from 'node-fetch';
 import express from 'express';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 // Get PC model
 const pcUrl = 'https://gist.githubusercontent.com/isuvorov/ce6b8d87983611482aac89f6d7bc0037/raw/pc.json';
 
@@ -44,32 +46,32 @@ app.get('/:level1?/:level2?/:level3?/:level4?', (req, res, next) => {
   if (!result && result !== null && result !== 0 && result !== '') {
     console.log('404');
     res.status(404)        // HTTP status 404: NotFound
-        .send('Not found');
+        .send('Not Found');
   }
   // 2nd level
   if (req.params.level2) {
-    if (!result[req.params.level2]) {
+    if (!result[req.params.level2] || req.params.level2 === 'length') {
       console.log('404');
       res.status(404)        // HTTP status 404: NotFound
-          .send('Not found');
+          .send('Not Found');
     }
     result = result[req.params.level2];
   }
   // 3rd level
   if (req.params.level3) {
-    if (!result[req.params.level3]) {
+    if (!result[req.params.level3] || req.params.level3 === 'length') {
       console.log('404');
       res.status(404)        // HTTP status 404: NotFound
-          .send('Not found');
+          .send('Not Found');
     }
     result = result[req.params.level3];
   }
   // 4th level
   if (req.params.level4) {
-    if (!result[req.params.level4]) {
+    if (!result[req.params.level4] || req.params.level4 === 'length') {
       console.log('404');
       res.status(404)        // HTTP status 404: NotFound
-          .send('Not found');
+          .send('Not Found');
     }
     result = result[req.params.level4];
   }
